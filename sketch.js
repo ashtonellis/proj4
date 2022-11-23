@@ -16,6 +16,8 @@ let sapling4 = false;
 let sapling5 = false;
 let sapling6 = false;
 let move = false;
+let tree = 0;
+let drive = 800;
 
 function setup() {
   createCanvas(800, 600);
@@ -44,9 +46,34 @@ function draw() {
   if (sapling3) {image(sapling,584,138);}
   if (sapling4) {image(sapling,130,136);}
   if (sapling5) {image(sapling,284,302);}
-  if (sapling5) {image(sapling,620,256);}
- }
+  if (sapling6) {image(sapling,620,256);}
+
+  
+  image(truck,drive,208);
+  if (tree >= 6) {drive = (drive - 2);}
+  if (drive <= -651) {drive = 650; // need pop up to next game
+  }
+
+  if (drive <= -168) {sapling1 = false, trunk1 = true;}
+  if (drive <= 132) {sapling2 = false, trunk2 = true;}
+  if (drive <= 336) {sapling3 = false; trunk3 = true;}
+  if (drive <= -124) {sapling4 = false; trunk4 = true;}
+  if (drive <= 32) {sapling5 = false, trunk5 = true;}
+  if (drive <= 360) {sapling6 = false, trunk6 = true;}
+}
 
  function mousePressed() {
-  
+  if (collidePointRect(mouseX,mouseY,42,460,150,50)) {trunk1 = false;}
+  if (collidePointRect(mouseX,mouseY,342,296,150,50)) {trunk2 = false;}
+  if (collidePointRect(mouseX,mouseY,546,236,150,50)) {trunk3 = false;}
+  if (collidePointRect(mouseX,mouseY,86,272,175,30)) {trunk4 = false;}
+  if (collidePointRect(mouseX,mouseY,242,436,175,30)) {trunk5 = false;}
+  if (collidePointRect(mouseX,mouseY,570,392,175,85)) {trunk6 = false;}
+
+  if (collidePointRect(mouseX,mouseY,62,522,102,33)) {sapling1 = true; tree++;}
+  if (collidePointRect(mouseX,mouseY,354,362,117,35)) {sapling2 = true; tree++;}
+  if (collidePointRect(mouseX,mouseY,564,294,102,37)) {sapling3 = true; tree++;}
+  if (collidePointRect(mouseX,mouseY,110,310,116,33)) {sapling4 = true; tree++;}
+  if (collidePointRect(mouseX,mouseY,254,472,137,40)) {sapling5 = true; tree++;}
+  if (collidePointRect(mouseX,mouseY,588,432,128,36)) {sapling6 = true; tree++;}
  }
