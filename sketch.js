@@ -17,7 +17,7 @@ let sapling5 = false;
 let sapling6 = false;
 let move = false;
 let tree = 0;
-let drive = 800;
+let drive = 900;
 
 function setup() {
   createCanvas(800, 600);
@@ -51,7 +51,7 @@ function draw() {
   
   image(truck,drive,208);
   if (tree >= 6) {drive = (drive - 2);}
-  if (drive <= -651) {drive = 650; // need pop up to next game
+  if (drive <= -650) {tree = 0; // need pop up to next game
   }
 
   if (drive <= -168) {sapling1 = false, trunk1 = true;}
@@ -70,6 +70,8 @@ function draw() {
   if (collidePointRect(mouseX,mouseY,242,436,175,30)) {trunk5 = false;}
   if (collidePointRect(mouseX,mouseY,570,392,175,85)) {trunk6 = false;}
 
+
+  //figure out how to only get saplings if all trunks are gone
   if (collidePointRect(mouseX,mouseY,62,522,102,33)) {sapling1 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,354,362,117,35)) {sapling2 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,564,294,102,37)) {sapling3 = true; tree++;}
@@ -77,3 +79,5 @@ function draw() {
   if (collidePointRect(mouseX,mouseY,254,472,137,40)) {sapling5 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,588,432,128,36)) {sapling6 = true; tree++;}
  }
+
+ //want to add text about amount of trees torn down yearly
