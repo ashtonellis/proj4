@@ -3,6 +3,8 @@ let imgtrunk1;
 let imgtrunk2;
 let sapling;
 let truck;
+let again;
+let trunk = 0;
 let trunk1 = true;
 let trunk2 = true;
 let trunk3 = true;
@@ -18,6 +20,9 @@ let sapling6 = false;
 let move = false;
 let tree = 0;
 let drive = 900;
+let tryagain = false;
+let yes = false;
+let no = false;
 
 function setup() {
   createCanvas(800, 600);
@@ -28,11 +33,16 @@ function preload() {
   imgtrunk1 = loadImage("assets/trunk1.png");
   imgtrunk2 = loadImage("assets/trunk2.png");
   sapling = loadImage("assets/sapling.png");
-  truck = loadImage("assets/truck.png")
+  truck = loadImage("assets/truck.png");
+  again = loadImage("assets/tryagain.png");
 }
 
 function draw() {
   image(field,0,0);
+  if (yes) {tryagain = false};
+  if (no) {
+    //move to next scene
+  }
 
   if (trunk1) {image(imgtrunk1,42,460);}
   if (trunk2) {image(imgtrunk1,342,296);}
@@ -51,8 +61,7 @@ function draw() {
   
   image(truck,drive,208);
   if (tree >= 6) {drive = (drive - 2);}
-  if (drive <= -650) {tree = 0; // need pop up to next game
-  }
+  if (drive <= -650) {tree = 0; tryagain = true; drive = 900; yes = false; no = false;}
 
   if (drive <= -168) {sapling1 = false, trunk1 = true;}
   if (drive <= 132) {sapling2 = false, trunk2 = true;}
@@ -60,24 +69,32 @@ function draw() {
   if (drive <= -124) {sapling4 = false; trunk4 = true;}
   if (drive <= 32) {sapling5 = false, trunk5 = true;}
   if (drive <= 360) {sapling6 = false, trunk6 = true;}
+  if (tryagain) {image(again,250,86);}
+
+  
+
 }
 
  function mousePressed() {
-  if (collidePointRect(mouseX,mouseY,42,460,150,50)) {trunk1 = false;}
-  if (collidePointRect(mouseX,mouseY,342,296,150,50)) {trunk2 = false;}
-  if (collidePointRect(mouseX,mouseY,546,236,150,50)) {trunk3 = false;}
-  if (collidePointRect(mouseX,mouseY,86,272,175,30)) {trunk4 = false;}
-  if (collidePointRect(mouseX,mouseY,242,436,175,30)) {trunk5 = false;}
-  if (collidePointRect(mouseX,mouseY,570,392,175,85)) {trunk6 = false;}
+  if (collidePointRect(mouseX,mouseY,42,460,150,50)) {trunk1 = false; trunk++;}
+  if (collidePointRect(mouseX,mouseY,342,296,150,50)) {trunk2 = false; trunk++;}
+  if (collidePointRect(mouseX,mouseY,546,236,150,50)) {trunk3 = false;trunk++}
+  if (collidePointRect(mouseX,mouseY,86,272,175,30)) {trunk4 = false; trunk++}
+  if (collidePointRect(mouseX,mouseY,242,436,175,30)) {trunk5 = false; trunk++}
+  if (collidePointRect(mouseX,mouseY,570,392,175,85)) {trunk6 = false; trunk++}
 
-
-  //figure out how to only get saplings if all trunks are gone
+  if (trunk >=6) {
   if (collidePointRect(mouseX,mouseY,62,522,102,33)) {sapling1 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,354,362,117,35)) {sapling2 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,564,294,102,37)) {sapling3 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,110,310,116,33)) {sapling4 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,254,472,137,40)) {sapling5 = true; tree++;}
   if (collidePointRect(mouseX,mouseY,588,432,128,36)) {sapling6 = true; tree++;}
- }
+  }
+  if (tryagain) {
+    if (collidePointRect(mouseX,mouseY,270,190,80,30)) {yes = true;console.log('yes')}
+    if (collidePointRect(mouseX,mouseY,450,190,80,30)) {no = true;}
+  }
+}
 
  //want to add text about amount of trees torn down yearly
